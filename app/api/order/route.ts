@@ -18,11 +18,19 @@ function makeInquiryId() {
 }
 
 function isAllowedOrigin(request: NextRequest) {
-  const allowed = process.env.FRONTEND_URL || process.env.NEXT_PUBLIC_SITE_URL;
   const origin = request.headers.get("origin");
-  if (!allowed || !origin) return true;
+  if (!origin) return true;
+
   try {
-    return new URL(origin).origin === new URL(allowed).origin;
+    const allowedOrigins = [
+      new URL(request.url).origin,
+      process.env.FRONTEND_URL,
+      process.env.NEXT_PUBLIC_SITE_URL,
+    ]
+      .filter((value): value is string => Boolean(value))
+      .map((value) => new URL(value).origin);
+
+    return allowedOrigins.includes(new URL(origin).origin);
   } catch {
     return false;
   }
