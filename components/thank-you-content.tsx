@@ -14,11 +14,11 @@ export function ThankYouContent() {
   const emailDelivered = params.get("emailStatus") !== "delayed";
 
   if (!inquiryId) {
-    return <main className="grid min-h-screen place-items-center bg-[#f7f9fb] p-6"><div className="max-w-lg rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-xl"><ShieldCheck className="mx-auto text-[#dc7d04]" size={42} /><h1 className="mt-5 text-3xl font-black tracking-tight text-[#0c2442]">No inquiry reference found</h1><p className="mt-3 leading-7 text-slate-500">This page only confirms inquiries that have completed the submission process.</p><Link href="/" className="btn-primary mt-6">Return home</Link></div></main>;
+    return <main id="main-content" className="grid min-h-screen place-items-center bg-[#f7f9fb] p-6"><div className="max-w-lg rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-xl"><ShieldCheck className="mx-auto text-[#dc7d04]" size={42} /><h1 className="mt-5 text-3xl font-black tracking-tight text-[#0c2442]">No inquiry reference found</h1><p className="mt-3 leading-7 text-slate-500">This page only confirms inquiries that have completed the submission process.</p><Link href="/" className="btn-primary mt-6">Return home</Link></div></main>;
   }
 
   return (
-    <main className="min-h-screen bg-[#f3f6f9] px-4 py-10 sm:py-16">
+    <main id="main-content" className="min-h-screen bg-[#f3f6f9] px-4 py-10 sm:py-16">
       <div className="mx-auto max-w-3xl overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_24px_70px_rgba(12,36,66,.12)]">
         <div className="relative overflow-hidden bg-[#0c2442] px-6 py-12 text-center text-white sm:px-12">
           <div className="grid-texture absolute inset-0 opacity-40" />

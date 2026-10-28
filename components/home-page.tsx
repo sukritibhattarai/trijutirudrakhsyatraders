@@ -13,7 +13,9 @@ import {
   ChevronRight,
   CircleDollarSign,
   ClipboardCheck,
+  Factory,
   Headphones,
+  Mail,
   MapPin,
   Minus,
   PackageCheck,
@@ -31,8 +33,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
 const faqs = [
-  ["Which cement brands are available?", "Customers can inquire about Gajraj, Hongshi, Sarbottam, Sagarmatha and Shaurya Cement, subject to current stock."],
-  ["Are OPC and PPC cement available?", "Yes. The available options include Gajraj OPC 43 Grade and PPC, plus brand-specific OPC and PPC choices shown on each product page."],
+  ["Which cement brands are available?", "Customers can inquire about Gajraj, Samrat, Hongshi, Sarbottam, Sagarmatha and Shaurya Cement, subject to current stock."],
+  ["Are OPC and PPC cement available?", "Yes. Available options include brand-specific OPC and PPC choices shown on each cement product page. The final type should follow the project engineer’s specification."],
   ["Do you supply TMT steel bars?", "Yes. Stock-list options include 7 mm to 25 mm TMT, with Jagadamba, Ambe and Thermex choices where listed."],
   ["Is binding wire available?", "Yes. Submit the quantity you need and our team will confirm pricing and availability."],
   ["What other steel materials can I request?", "You can request black pipe, SHS/RHS and square pipe, corrugated galvanized sheets, gabion boxes, heavy GI wire, HR sheet and MS Channel."],
@@ -40,6 +42,8 @@ const faqs = [
   ["Can I request bulk quantities?", "Yes. The form accepts bulk inquiries in bags, bundles, kilograms or metric tons depending on the material."],
   ["How can I make payment?", "After the quotation is confirmed, the company accepts advance payment through bank transfer. Only use instructions sent by an authorized company representative."],
 ];
+
+const productCategories = ["All materials", ...Array.from(new Set(products.map((product) => product.category)))];
 
 function makeItem(product: Product): InquiryItem {
   return {
@@ -55,8 +59,13 @@ export function HomePage({ phone, whatsapp, email }: { phone?: string; whatsapp?
   const router = useRouter();
   const [items, setItems] = useState<InquiryItem[]>([]);
   const [selectionMessage, setSelectionMessage] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All materials");
 
   const totalQuantity = useMemo(() => items.reduce((sum, item) => sum + item.quantity, 0), [items]);
+  const visibleProducts = useMemo(
+    () => activeCategory === "All materials" ? products : products.filter((product) => product.category === activeCategory),
+    [activeCategory],
+  );
 
   function addProduct(product: Product) {
     setItems((current) => {
@@ -90,7 +99,7 @@ export function HomePage({ phone, whatsapp, email }: { phone?: string; whatsapp?
   return (
     <>
       <SiteHeader phone={phone} />
-      <main>
+      <main id="main-content" className="pb-20 md:pb-0">
         <section className="relative overflow-hidden bg-[#07182d] text-white">
           <div className="grid-texture absolute inset-0 opacity-60" />
           <div className="absolute -left-40 top-20 h-80 w-80 rounded-full bg-[#17385f] blur-3xl" />
@@ -101,7 +110,7 @@ export function HomePage({ phone, whatsapp, email }: { phone?: string; whatsapp?
               <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">Cement, TMT steel, pipes, sheets, wire and gabion materials—all in one quotation, with pricing confirmed for your quantity and location.</p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a href="#products" className="btn-primary focus-ring">Get a free quotation <ArrowRight size={18} /></a>
-                {whatsappHref ? <a href={whatsappHref} target="_blank" rel="noreferrer" className="btn-light focus-ring">WhatsApp us</a> : <span className="btn-light cursor-not-allowed opacity-60" title="Add NEXT_PUBLIC_WHATSAPP_NUMBER to enable">WhatsApp soon</span>}
+                {whatsappHref ? <a href={whatsappHref} target="_blank" rel="noreferrer" className="btn-light focus-ring">WhatsApp us</a> : <a href={`mailto:${email}`} className="btn-light focus-ring"><Mail size={17} />Email sales</a>}
               </div>
               <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-300">
                 <span className="flex items-center gap-2"><Check size={16} className="text-[#f59e0b]" />Multiple brands</span>
@@ -148,8 +157,26 @@ export function HomePage({ phone, whatsapp, email }: { phone?: string; whatsapp?
               <div><span className="eyebrow">Materials we supply</span><h2 className="section-title mt-4">Start with what your project needs.</h2></div>
               <div className="lg:pl-16"><p className="section-copy">Choose a brand or material and add the approximate quantity. No price shown here is invented—our sales team confirms the current rate, stock and delivery charge.</p></div>
             </div>
+            <div className="mt-9 flex flex-wrap gap-2" role="group" aria-label="Filter products by category">
+              {productCategories.map((category) => {
+                const count = category === "All materials" ? products.length : products.filter((product) => product.category === category).length;
+                const selected = activeCategory === category;
+                return (
+                  <button
+                    key={category}
+                    type="button"
+                    aria-pressed={selected}
+                    onClick={() => setActiveCategory(category)}
+                    className={`focus-ring rounded-full border px-4 py-2 text-sm font-extrabold transition ${selected ? "border-[#0c2442] bg-[#0c2442] text-white shadow-md" : "border-slate-300 bg-white text-slate-600 hover:border-[#dc7d04] hover:text-[#9a5300]"}`}
+                  >
+                    {category} <span className={selected ? "text-white/60" : "text-slate-400"}>({count})</span>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="mt-4 text-sm font-semibold text-slate-500" aria-live="polite">Showing {visibleProducts.length} of {products.length} materials</p>
             <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {products.map((product) => (
+              {visibleProducts.map((product) => (
                 <article key={product.id} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_32px_rgba(12,36,66,.06)] transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(12,36,66,.12)]">
                   <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
                     <Image src={product.image} alt={product.imageAlt} fill sizes="(max-width: 768px) 100vw, 33vw" className={`${product.imageFit === "contain" ? "object-contain p-4" : "object-cover"} transition duration-500 group-hover:scale-[1.025]`} />
@@ -229,15 +256,15 @@ export function HomePage({ phone, whatsapp, email }: { phone?: string; whatsapp?
           </div>
         </section>
 
-        <section className="bg-white py-24">
+        <section id="about" className="scroll-mt-24 bg-white py-24">
           <div className="container-shell grid items-center gap-14 lg:grid-cols-2">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl"><Image src="/images/real-tmt-steel.jpg" alt="TMT steel bars ready for supply" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-[#07182d]/75 via-transparent to-transparent" /><div className="absolute bottom-6 left-6 right-6 flex items-end justify-between text-white"><div><span className="text-xs font-bold uppercase tracking-[.14em] text-[#f59e0b]">For projects of every scale</span><p className="mt-1 text-xl font-extrabold">From a few bags to bulk supply</p></div><Building2 className="hidden sm:block" size={40} /></div></div>
-            <div><span className="eyebrow">Why inquire with us</span><h2 className="section-title mt-4">Make one call for the materials that keep work moving.</h2><p className="section-copy mt-5">Trijuti Rudrakshya Traders brings cement, reinforcement steel, pipes, roofing sheets, wire and fabrication materials into a single quotation process.</p><div className="mt-8 grid gap-4 sm:grid-cols-2">{[
+            <div><span className="eyebrow">About our company</span><h2 className="section-title mt-4">One quotation process for the materials that keep work moving.</h2><p className="section-copy mt-5">Trijuti Rudrakshya Traders Pvt. Ltd. helps customers request cement, reinforcement steel, pipes, roofing sheets, wire and fabrication materials through one clear quotation process. Our team confirms current stock, market rate and delivery details for the quantity and location supplied by the customer.</p><div className="mt-8 grid gap-4 sm:grid-cols-2">{[
               [Boxes, "Multiple options", "Compare brands and types in one request."],
               [MapPin, "Location-based delivery", "Transport is confirmed for your exact site."],
               [PackageCheck, "Bulk-friendly", "Send large requirements with clear units."],
               [Headphones, "Direct follow-up", "A sales representative confirms every detail."],
-            ].map(([Icon, title, copy]) => { const IconComponent = Icon as typeof Boxes; return <div key={title as string} className="rounded-xl border border-slate-200 p-5"><IconComponent className="text-[#dc7d04]" size={22} /><strong className="mt-4 block">{title as string}</strong><p className="mt-1 text-sm leading-6 text-slate-500">{copy as string}</p></div>; })}</div><a href="#quote-builder" className="btn-primary focus-ring mt-8">Build my quotation <ArrowRight size={18} /></a></div>
+            ].map(([Icon, title, copy]) => { const IconComponent = Icon as typeof Boxes; return <div key={title as string} className="rounded-xl border border-slate-200 p-5"><IconComponent className="text-[#dc7d04]" size={22} /><strong className="mt-4 block">{title as string}</strong><p className="mt-1 text-sm leading-6 text-slate-500">{copy as string}</p></div>; })}</div><div className="mt-8 flex flex-col gap-3 sm:flex-row"><a href="#quote-builder" className="btn-primary focus-ring">Build my quotation <ArrowRight size={18} /></a><a href={`mailto:${email}`} className="btn-secondary focus-ring"><Mail size={17} />Email the office</a></div></div>
           </div>
         </section>
 
@@ -253,6 +280,12 @@ export function HomePage({ phone, whatsapp, email }: { phone?: string; whatsapp?
         </section>
       </main>
       <SiteFooter phone={phone} email={email} />
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 p-3 shadow-[0_-10px_30px_rgba(7,24,45,.12)] backdrop-blur md:hidden">
+        <div className="mx-auto flex max-w-lg gap-2">
+          <a href="#quote-builder" className="btn-primary focus-ring !min-h-12 flex-1 !px-3 text-sm"><Factory size={17} />Build quotation</a>
+          {whatsappHref ? <a href={whatsappHref} target="_blank" rel="noreferrer" className="btn-secondary focus-ring !min-h-12 !px-4" aria-label="Contact us on WhatsApp">WhatsApp</a> : <a href={`mailto:${email}`} className="btn-secondary focus-ring !min-h-12 !px-4" aria-label="Email the office"><Mail size={18} /></a>}
+        </div>
+      </div>
     </>
   );
 }

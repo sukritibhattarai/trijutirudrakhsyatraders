@@ -7,6 +7,7 @@ import { BrandLogo } from "@/components/brand-logo";
 
 const nav = [
   ["Products", "/#products"],
+  ["About", "/#about"],
   ["How it works", "/#process"],
   ["FAQ", "/#faq"],
   ["Contact", "/#contact"],
@@ -27,7 +28,7 @@ export function SiteHeader({ phone }: { phone?: string }) {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
+        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary navigation">
           {nav.map(([label, href]) => <a key={href} href={href} className="focus-ring rounded text-sm font-semibold text-slate-600 transition hover:text-[#0c2442]">{label}</a>)}
         </nav>
 

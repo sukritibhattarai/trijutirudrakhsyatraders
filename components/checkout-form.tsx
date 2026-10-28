@@ -97,7 +97,7 @@ export function CheckoutForm() {
   }
 
   return (
-    <main className="min-h-screen bg-[#eaf0f5]">
+    <main id="main-content" className="min-h-screen bg-[#eaf0f5]">
       <div className="border-b border-slate-200 bg-white">
         <div className="container-shell flex h-[74px] items-center justify-between">
           <Link href="/" className="focus-ring flex items-center gap-3 rounded-lg"><BrandLogo height={42} priority /><span className="hidden text-sm font-extrabold text-[#0c2442] sm:block">Trijuti Rudrakshya Traders</span></Link>
@@ -106,6 +106,18 @@ export function CheckoutForm() {
       </div>
 
       <div className="container-shell py-12 lg:py-16">
+        <ol className="mb-10 grid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm sm:grid-cols-3" aria-label="Quotation request progress">
+          {[
+            ["1", "Materials selected", "Complete"],
+            ["2", "Contact details", "Current step"],
+            ["3", "Request confirmation", "Next"],
+          ].map(([number, label, status], index) => (
+            <li key={number} className={`flex items-center gap-3 px-5 py-4 ${index ? "border-t border-slate-200 sm:border-l sm:border-t-0" : ""}`} aria-current={index === 1 ? "step" : undefined}>
+              <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-xs font-black ${index === 0 ? "bg-emerald-100 text-emerald-700" : index === 1 ? "bg-[#f59e0b] text-[#07182d]" : "bg-slate-100 text-slate-500"}`}>{index === 0 ? <Check size={15} /> : number}</span>
+              <span><strong className="block text-sm text-[#0c2442]">{label}</strong><span className="text-xs text-slate-500">{status}</span></span>
+            </li>
+          ))}
+        </ol>
         <div className="mb-10 max-w-2xl"><span className="eyebrow">Quotation request</span><h1 className="mt-4 text-4xl font-black tracking-[-.045em] text-[#0c2442] sm:text-5xl">Tell us where your project is.</h1><p className="mt-4 leading-7 text-slate-500">Your information goes to the sales team for current pricing, stock and delivery confirmation. No payment is collected on this page.</p></div>
 
         <div className="grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:items-start">

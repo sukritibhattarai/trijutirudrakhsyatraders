@@ -39,6 +39,7 @@ The page can be previewed without credentials. A real form submission needs the 
 ### Individual product pages
 
 - `/products/gajraj-cement`
+- `/products/samrat-cement`
 - `/products/hongshi-cement`
 - `/products/sarbottam-cement`
 - `/products/sagarmatha-cement`

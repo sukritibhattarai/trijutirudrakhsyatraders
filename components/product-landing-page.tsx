@@ -42,7 +42,11 @@ export function ProductLandingPage({
   const [quantity, setQuantity] = useState(1);
   const [unit, setUnit] = useState(product.defaultUnit);
   const accentStyle = { "--product-accent": product.accent } as CSSProperties;
-  const otherProducts = products.filter((item) => item.id !== product.id).slice(0, 3);
+  const relatedProducts = products.filter((item) => item.id !== product.id && item.category === product.category);
+  const otherProducts = [
+    ...relatedProducts,
+    ...products.filter((item) => item.id !== product.id && item.category !== product.category),
+  ].slice(0, 3);
   const whatsappHref = whatsapp ? `https://wa.me/${whatsapp.replace(/\D/g, "")}` : undefined;
   const phoneHref = phone ? `tel:${phone.replace(/[^+\d]/g, "")}` : undefined;
 
@@ -60,7 +64,7 @@ export function ProductLandingPage({
   return (
     <div style={accentStyle}>
       <SiteHeader phone={phone} />
-      <main>
+      <main id="main-content">
         <div className="border-b border-slate-200 bg-white">
           <div className="container-shell flex min-h-12 items-center gap-2 overflow-x-auto text-xs font-semibold text-slate-500">
             <Link href="/" className="whitespace-nowrap hover:text-[#0c2442]">Home</Link><ChevronRight size={13} /><Link href="/#products" className="whitespace-nowrap hover:text-[#0c2442]">Products</Link><ChevronRight size={13} /><span className="whitespace-nowrap text-[#0c2442]">{product.name}</span>

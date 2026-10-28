@@ -19,15 +19,15 @@ export function SiteFooter({ phone, email }: { phone?: string; email?: string })
         <div>
           <h3 className="mb-4 font-bold">Quick links</h3>
           <div className="flex flex-col gap-3 text-sm text-slate-300">
-            <Link href="/#products">Products</Link><Link href="/#process">How it works</Link><Link href="/#faq">FAQ</Link><Link href="/checkout">Quotation request</Link>
+            <Link href="/#products">Products</Link><Link href="/#about">About us</Link><Link href="/#process">How it works</Link><Link href="/#faq">FAQ</Link><Link href="/checkout">Quotation request</Link>
           </div>
         </div>
         <div>
           <h3 className="mb-4 font-bold">Business contact</h3>
           <div className="space-y-3 text-sm text-slate-300">
-            <p className="flex gap-3"><Phone size={17} className="mt-0.5 shrink-0 text-[#f59e0b]" />{phone || "Official phone number to be added"}</p>
+            {phone ? <p className="flex gap-3"><Phone size={17} className="mt-0.5 shrink-0 text-[#f59e0b]" /><a href={`tel:${phone.replace(/[^+\d]/g, "")}`} className="transition hover:text-white">{phone}</a></p> : null}
             <p className="flex gap-3"><Mail size={17} className="mt-0.5 shrink-0 text-[#f59e0b]" /><a className="break-all transition hover:text-white" href={`mailto:${contactEmail}`}>{contactEmail}</a></p>
-            <p className="flex gap-3"><MapPin size={17} className="mt-0.5 shrink-0 text-[#f59e0b]" />Official business address to be added</p>
+            <p className="flex gap-3"><MapPin size={17} className="mt-0.5 shrink-0 text-[#f59e0b]" />Delivery availability is confirmed for your exact project location in Nepal.</p>
           </div>
         </div>
       </div>
