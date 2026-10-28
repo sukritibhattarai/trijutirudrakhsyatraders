@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { products } from "@/lib/products";
+import { siteConfig } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const baseUrl = siteConfig.url;
   return [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     ...products.map((product) => ({

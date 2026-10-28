@@ -3,7 +3,7 @@ import { products } from "@/lib/products";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Page() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = siteConfig.url;
   const phone = process.env.NEXT_PUBLIC_PHONE_NUMBER;
   const organizationSchema = {
     "@context": "https://schema.org",

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: "Trijuti Rudrakshya Traders | Construction Materials Nepal",
     template: "%s | Trijuti Rudrakshya Traders",

@@ -40,7 +40,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (slug === "giriraj-cement") permanentRedirect("/products/gajraj-cement");
   const product = productById(slug);
   if (!product) notFound();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = siteConfig.url;
   const productUrl = `${siteUrl}/products/${product.id}`;
   const productSchema = {
     "@context": "https://schema.org",
