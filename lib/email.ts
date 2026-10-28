@@ -60,7 +60,7 @@ function transporter() {
 }
 
 export async function sendInquiryEmails(record: InquiryEmailRecord) {
-  const businessEmail = process.env.BUSINESS_EMAIL?.trim() || siteConfig.email;
+  const businessEmail = siteConfig.email;
   const brand = process.env.BRAND_NAME || "Trijuti Rudrakshya Traders Pvt. Ltd.";
   const from = `${brand} <${required("SMTP_USER").trim()}>`;
   const mailer = transporter();

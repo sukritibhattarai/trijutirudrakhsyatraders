@@ -62,7 +62,7 @@ The former misspelled `/products/giriraj-cement` address permanently redirects t
 | `NEXT_PUBLIC_SITE_URL` | Public production URL, such as `https://example.com` |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | Digits only, including country code, such as `97798...` |
 | `NEXT_PUBLIC_PHONE_NUMBER` | Public call number shown in the header/footer |
-| `BUSINESS_EMAIL` | Official inbox that receives new inquiries |
+| `BUSINESS_EMAIL` | Optional deployment reference; the official inbox is set in `lib/site-config.ts` |
 | `EMAIL_FROM` | Verified sender, commonly `Brand <same-gmail-address@gmail.com>` |
 | `BRAND_NAME` | Brand displayed in both email templates |
 | `GOOGLE_SHEET_ID` | ID between `/d/` and `/edit` in the Google Sheet URL |
@@ -106,12 +106,12 @@ Never commit `.env.local`.
 
 ## Gmail / SMTP setup
 
-1. Use the official business Gmail or Google Workspace account.
+1. Choose a Gmail or Google Workspace account that will send website emails. It may be different from the office inbox that receives orders.
 2. Enable 2-Step Verification.
 3. Create a Google **App Password** for Mail.
 4. Use `smtp.gmail.com`, port `465`, the full Gmail address as `SMTP_USER`, and the 16-character App Password as `SMTP_PASS`.
-5. Set `BUSINESS_EMAIL` to the inbox that should receive inquiry alerts.
-6. Use the same verified account in `EMAIL_FROM`. The customer sees this sender and can reply to the business email.
+5. The order-recipient inbox is configured as `siteConfig.email` in `lib/site-config.ts`.
+6. Customers see the authenticated `SMTP_USER` as the sender. Their replies are directed to the office inbox.
 
 Both emails are responsive, table-based HTML with inline styles for Gmail compatibility. The business email contains customer and product details plus a follow-up callout. The customer email explains the next steps and warns against unverified payment instructions.
 

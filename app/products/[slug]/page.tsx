@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { ProductLandingPage } from "@/components/product-landing-page";
 import { productById, products } from "@/lib/products";
+import { siteConfig } from "@/lib/site-config";
 
 type ProductPageProps = { params: Promise<{ slug: string }> };
 
@@ -37,7 +38,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       product={product}
       phone={process.env.NEXT_PUBLIC_PHONE_NUMBER}
       whatsapp={process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}
-      email={process.env.BUSINESS_EMAIL}
+      email={siteConfig.email}
     />
   );
 }
