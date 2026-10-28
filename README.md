@@ -2,6 +2,8 @@
 
 A production-oriented Next.js sales-inquiry funnel for cement, TMT steel, pipes, sheets, wire, gabion boxes and fabrication steel. It intentionally does **not** publish invented prices, delivery fees, bank details, testimonials or payment confirmations.
 
+Official business details used on the site: New Baneshwor-10, Kathmandu, Nepal; PAN 621240526; online quotation requests are accepted anytime; sales contact is handled through the office email.
+
 ## Architecture and order flow
 
 - **Next.js 16 App Router + TypeScript + Tailwind CSS 4** provides the landing page, quotation builder, checkout form and receipt page.

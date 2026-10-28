@@ -29,6 +29,7 @@ import {
 import { useMemo, useState } from "react";
 import type { InquiryItem, Product } from "@/lib/products";
 import { products, productById } from "@/lib/products";
+import { siteConfig } from "@/lib/site-config";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
@@ -259,7 +260,7 @@ export function HomePage({ phone, whatsapp, email }: { phone?: string; whatsapp?
         <section id="about" className="scroll-mt-24 bg-white py-24">
           <div className="container-shell grid items-center gap-14 lg:grid-cols-2">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl"><Image src="/images/real-tmt-steel.jpg" alt="TMT steel bars ready for supply" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-[#07182d]/75 via-transparent to-transparent" /><div className="absolute bottom-6 left-6 right-6 flex items-end justify-between text-white"><div><span className="text-xs font-bold uppercase tracking-[.14em] text-[#f59e0b]">For projects of every scale</span><p className="mt-1 text-xl font-extrabold">From a few bags to bulk supply</p></div><Building2 className="hidden sm:block" size={40} /></div></div>
-            <div><span className="eyebrow">About our company</span><h2 className="section-title mt-4">One quotation process for the materials that keep work moving.</h2><p className="section-copy mt-5">Trijuti Rudrakshya Traders Pvt. Ltd. helps customers request cement, reinforcement steel, pipes, roofing sheets, wire and fabrication materials through one clear quotation process. Our team confirms current stock, market rate and delivery details for the quantity and location supplied by the customer.</p><div className="mt-8 grid gap-4 sm:grid-cols-2">{[
+            <div><span className="eyebrow">About our company</span><h2 className="section-title mt-4">One quotation process for the materials that keep work moving.</h2><p className="section-copy mt-5">Trijuti Rudrakshya Traders Pvt. Ltd. helps customers request cement, reinforcement steel, pipes, roofing sheets, wire and fabrication materials through one clear quotation process. Our team confirms current stock, market rate and delivery details for the quantity and location supplied by the customer.</p><div className="mt-6 rounded-2xl border border-slate-200 bg-[#f7f9fb] p-5 text-sm text-slate-600"><p className="flex items-start gap-3"><MapPin className="mt-0.5 shrink-0 text-[#dc7d04]" size={18} /><span><strong className="text-[#0c2442]">Office:</strong> {siteConfig.address.display}</span></p><p className="mt-3 flex items-start gap-3"><Mail className="mt-0.5 shrink-0 text-[#dc7d04]" size={18} /><span><strong className="text-[#0c2442]">Contact:</strong> Email the office for sales and quotation support.</span></p><p className="mt-3 font-semibold text-[#17385f]">{siteConfig.inquiryAvailability}.</p></div><div className="mt-8 grid gap-4 sm:grid-cols-2">{[
               [Boxes, "Multiple options", "Compare brands and types in one request."],
               [MapPin, "Location-based delivery", "Transport is confirmed for your exact site."],
               [PackageCheck, "Bulk-friendly", "Send large requirements with clear units."],

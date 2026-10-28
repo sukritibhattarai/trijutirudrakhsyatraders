@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Clock3, FileText, Mail, MapPin, Phone } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
 import { siteConfig } from "@/lib/site-config";
 
@@ -27,7 +27,9 @@ export function SiteFooter({ phone, email }: { phone?: string; email?: string })
           <div className="space-y-3 text-sm text-slate-300">
             {phone ? <p className="flex gap-3"><Phone size={17} className="mt-0.5 shrink-0 text-[#f59e0b]" /><a href={`tel:${phone.replace(/[^+\d]/g, "")}`} className="transition hover:text-white">{phone}</a></p> : null}
             <p className="flex gap-3"><Mail size={17} className="mt-0.5 shrink-0 text-[#f59e0b]" /><a className="break-all transition hover:text-white" href={`mailto:${contactEmail}`}>{contactEmail}</a></p>
-            <p className="flex gap-3"><MapPin size={17} className="mt-0.5 shrink-0 text-[#f59e0b]" />Delivery availability is confirmed for your exact project location in Nepal.</p>
+            <p className="flex gap-3"><MapPin size={17} className="mt-0.5 shrink-0 text-[#f59e0b]" />{siteConfig.address.display}</p>
+            <p className="flex gap-3"><FileText size={17} className="mt-0.5 shrink-0 text-[#f59e0b]" />PAN: {siteConfig.pan}</p>
+            <p className="flex gap-3"><Clock3 size={17} className="mt-0.5 shrink-0 text-[#f59e0b]" />{siteConfig.inquiryAvailability}</p>
           </div>
         </div>
       </div>

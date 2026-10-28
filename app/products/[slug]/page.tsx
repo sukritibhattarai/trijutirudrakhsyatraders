@@ -50,7 +50,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
     image: `${siteUrl}${product.image}`,
     category: product.category,
     url: productUrl,
-    seller: { "@type": "Organization", name: siteConfig.name, url: siteUrl },
+    seller: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteUrl,
+      email: siteConfig.email,
+      taxID: siteConfig.pan,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: siteConfig.address.streetAddress,
+        addressLocality: siteConfig.address.addressLocality,
+        addressCountry: "NP",
+      },
+    },
   };
   const breadcrumbSchema = {
     "@context": "https://schema.org",

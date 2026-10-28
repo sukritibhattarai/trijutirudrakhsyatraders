@@ -32,6 +32,8 @@ export const metadata: Metadata = {
     "steel pipe Nepal",
     "gabion box Nepal",
     "GI wire Nepal",
+    "construction materials New Baneshwor",
+    "construction supplier Kathmandu",
   ],
   openGraph: {
     title: "Trijuti Rudrakshya Traders Pvt. Ltd.",

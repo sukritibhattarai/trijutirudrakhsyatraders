@@ -12,6 +12,13 @@ export default function Page() {
     url: siteUrl,
     logo: `${siteUrl}${siteConfig.logo}`,
     email: siteConfig.email,
+    taxID: siteConfig.pan,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: siteConfig.address.streetAddress,
+      addressLocality: siteConfig.address.addressLocality,
+      addressCountry: "NP",
+    },
     areaServed: { "@type": "Country", name: "Nepal" },
     contactPoint: {
       "@type": "ContactPoint",
