@@ -46,18 +46,23 @@ function itemRows(input: OrderInput) {
 
 function transporter() {
   const port = Number(required("SMTP_PORT"));
+  const host = required("SMTP_HOST").trim();
+  const user = required("SMTP_USER").trim();
+  const rawPassword = required("SMTP_PASS").trim();
+  const password = host === "smtp.gmail.com" ? rawPassword.replaceAll(" ", "") : rawPassword;
+
   return nodemailer.createTransport({
-    host: required("SMTP_HOST"),
+    host,
     port,
     secure: port === 465,
-    auth: { user: required("SMTP_USER"), pass: required("SMTP_PASS") },
+    auth: { user, pass: password },
   });
 }
 
 export async function sendInquiryEmails(record: InquiryEmailRecord) {
   const businessEmail = process.env.BUSINESS_EMAIL?.trim() || siteConfig.email;
-  const from = process.env.EMAIL_FROM?.trim() || `${siteConfig.name} <${siteConfig.email}>`;
   const brand = process.env.BRAND_NAME || "Trijuti Rudrakshya Traders Pvt. Ltd.";
+  const from = `${brand} <${required("SMTP_USER").trim()}>`;
   const mailer = transporter();
 
   await mailer.verify();
