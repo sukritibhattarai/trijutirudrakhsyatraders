@@ -34,7 +34,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
 const faqs = [
-  ["Which cement brands are available?", "Customers can inquire about Gajraj, Samrat, Hongshi, Sarbottam, Sagarmatha and Shaurya Cement, subject to current stock."],
+  ["Which cement brands are available?", "Customers can inquire about Gajraj, Hongshi, Sarbottam, Sagarmatha and Shaurya Cement, subject to current stock."],
   ["Are OPC and PPC cement available?", "Yes. Available options include brand-specific OPC and PPC choices shown on each cement product page. The final type should follow the project engineer’s specification."],
   ["Do you supply TMT steel bars?", "Yes. Stock-list options include 7 mm to 25 mm TMT, with Jagadamba, Ambe and Thermex choices where listed."],
   ["Is binding wire available?", "Yes. Submit the quantity you need and our team will confirm pricing and availability."],
