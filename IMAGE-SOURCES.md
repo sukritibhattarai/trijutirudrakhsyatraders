@@ -7,6 +7,7 @@
 - `public/images/hongshi-opc-real.jpg` — Hongshi OPC Cement product image from Nirman Sewa: <https://nirmansewa.com/rcc-structure/32-hongshi-opc-cement-bag.html>
 - `public/images/sagarmatha-cement-official.jpg` — Sagarmatha Cement official product-line image: <https://www.ghorahicement.com.np/products>
 - `public/images/shaurya-opc-43-official.png` — Shaurya Cement official 43 Grade OPC product image: <https://shauryacements.com/43-grade-opc-cement/>
+- `public/images/samrat-cement.jpg` — real Samrat Cement Company manufacturing facility in Dang, photographed for Kantipur: <https://ekantipur.com/lumbini-pradesh/2026/01/19/worker-at-samrat-cement-industry-dies-after-being-buried-by-mud-54-13.html>. Product and facility details were cross-checked against the official CG Cement Samrat page: <https://cgcement.com/portfolio/samrat-dang/>.
 
 Confirm that the business is permitted to reuse manufacturer and retailer product imagery before public advertising. Replace an asset if a brand supplies an approved dealer media kit.
 
