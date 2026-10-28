@@ -60,8 +60,7 @@ function transporter() {
 }
 
 export async function sendInquiryEmails(record: InquiryEmailRecord) {
-  const businessEmails = siteConfig.orderNotificationEmails;
-  const replyToEmail = siteConfig.email;
+  const businessEmail = siteConfig.email;
   const brand = process.env.BRAND_NAME || "Trijuti Rudrakshya Traders Pvt. Ltd.";
   const from = `${brand} <${required("SMTP_USER").trim()}>`;
   const mailer = transporter();
@@ -89,25 +88,25 @@ export async function sendInquiryEmails(record: InquiryEmailRecord) {
     <p style="color:#617087;line-height:1.7;margin-top:22px">This email confirms receipt of your order request. The order is accepted only after our team confirms the quotation, stock, delivery and payment details.</p>
   `, `We received order request ${record.inquiryId}`);
 
-  const [businessResults, customerResult] = await Promise.all([
-    Promise.all(businessEmails.map((businessEmail) => mailer.sendMail({
+  const [businessResult, customerResult] = await Promise.all([
+    mailer.sendMail({
       from,
       to: businessEmail,
       replyTo: record.input.email,
       subject: `New order request received - ${record.inquiryId}`,
       html: businessHtml,
-    }))),
+    }),
     mailer.sendMail({
       from,
       to: record.input.email,
-      replyTo: replyToEmail,
+      replyTo: businessEmail,
       subject: `Your order request has been received - ${brand}`,
       html: customerHtml,
     }),
   ]);
 
-  if (businessResults.some((result) => result.rejected.length) || customerResult.rejected.length) {
+  if (businessResult.rejected.length || customerResult.rejected.length) {
     throw new Error("The email provider rejected one or more recipients.");
   }
-  console.info(`[Inquiry ${record.inquiryId}] Gmail SMTP accepted ${businessResults.length} business notifications and the customer confirmation.`);
+  console.info(`[Inquiry ${record.inquiryId}] Gmail SMTP accepted the office notification and customer confirmation.`);
 }
